@@ -86,8 +86,8 @@ clf, regressors, scaler, df = build_pipeline()
 with st.sidebar:
     st.header("🎛️ Sensor Input")
     st.info("Input raw values ($F/F_0 - 1$)")
-    mpa_val = st.number_input("Sensor 1 (1@Pt@MPA)", value=-0.00250, format="%.5f", step=0.0001)
-    flu_val = st.number_input("Sensor 2 (aggregate of 1 on Pt@MPA)", value=0.00000, format="%.5f", step=0.0001)
+   1@Pt@MPA_val = st.number_input("Sensor 1 (1@Pt@MPA)", value=-0.00250, format="%.5f", step=0.0001)
+    aggregate of 1 on Pt@MPA_val = st.number_input("Sensor 2 (aggregate of 1 on Pt@MPA)", value=0.00000, format="%.5f", step=0.0001)
     st.markdown("---")
     analyze_btn = st.button("🚀 Analyze", type="primary")
 
@@ -96,11 +96,11 @@ with st.sidebar:
 # ==========================================
 if analyze_btn:
     # 检查正值干扰
-    if mpa_val > 0.001 or flu_val > 0.001:
+    if 1@Pt@MPA_val > 0.001 or flu_val > 0.001:
         st.error("⚠️ Unknown Interference (Enhancement Detected)")
     else:
         # 1. 分类 (SVM)
-        input_abs = np.array([[abs(mpa_val), abs(flu_val)]])
+        input_abs = np.array([[abs(1@Pt@MPA_val_val), abs(flu_val)]])
         input_scaled = scaler.transform(input_abs)
         pred_species = clf.predict(input_scaled)[0]
         confidence = np.max(clf.predict_proba(input_scaled)) * 100
@@ -111,15 +111,15 @@ if analyze_btn:
             # 2. 浓度计算 (Linear Regression)
             if pred_species == 'DCP':
                 # DCP 只看 MPA
-                pred_log = regressors['DCP'].predict([[abs(mpa_val)]])[0]
-                signal_used = abs(mpa_val)
-                signal_name = "MPA (Abs)"
+                pred_log = regressors['DCP'].predict([[abs(1@Pt@MPA_val)]])[0]
+                signal_used = abs(1@Pt@MPA_val)
+                signal_name = "1@Pt@MPA_val (Abs)"
                 color = 'blue'
             else:
                 # HCl 只看 Flu
-                pred_log = regressors['HCl'].predict([[abs(flu_val)]])[0]
-                signal_used = abs(flu_val)
-                signal_name = "Flu (Abs)"
+                pred_log = regressors['HCl'].predict([[abs(aggregate of 1 on Pt@MPA_val)]])[0]
+                signal_used = abs(aggregate of 1 on Pt@MPA_val)
+                signal_name = "aggregate of 1 on Pt@MPA (Abs)"
                 color = 'green'
                 
             pred_conc = 10 ** pred_log
@@ -136,9 +136,9 @@ if analyze_btn:
             subset = df[df['Species'] == pred_species]
             
             if pred_species == 'DCP':
-                x_data = subset['MPA_Abs'] # X轴: 信号
+                x_data = subset['1@Pt@MPA_Abs'] # X轴: 信号
             else:
-                x_data = subset['Flu_Abs'] # X轴: 信号
+                x_data = subset['aggregate of 1 on Pt@MPA_Abs'] # X轴: 信号
                 
             y_data = np.log10(subset['Concentration']) # Y轴: 浓度
             
@@ -171,5 +171,6 @@ if analyze_btn:
             ax.text(0.05, 0.85, eq, transform=ax.transAxes, bbox=dict(facecolor='white', alpha=0.9))
             
             st.pyplot(fig)
+
 
 

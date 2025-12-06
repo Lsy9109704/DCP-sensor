@@ -136,12 +136,22 @@ if analyze_btn:
     if mpa_val > 0.001 or flu_val > 0.001:
         st.error("⚠️ Unknown Interference (Enhancement Detected)")
     else:
-        # 1. Classification
+        # 1. Classification (获取分类结果和概率)
         input_abs = np.array([[abs(mpa_val), abs(flu_val)]])
-        pred_species = clf.predict(scaler.transform(input_abs))[0]
+        X_input = scaler.transform(input_abs)
+        
+        # 获取预测类别
+        pred_species = clf.predict(X_input)[0]
+        
+        # --- 新增代码: 获取置信度 ---
+        # predict_proba 返回每个类别的概率，我们取最大值作为置信度
+        probabilities = clf.predict_proba(X_input)[0] 
+        confidence = np.max(probabilities) * 100  # 转换为百分比
+        # -------------------------
         
         if pred_species == "Water":
-            st.success("✅ Clean / Background")
+            # 在这里显示置信度
+            st.success(f"✅ Clean / Background (置信度: {confidence:.1f}%)")
         else:
             # 2. Quantification (Polynomial Inversion)
             model_data = models_info[pred_species]
@@ -156,9 +166,11 @@ if analyze_btn:
             else:
                 pred_conc = 10 ** pred_log
 
-            # Display
+            # Display (在 Metric 中显示置信度)
             c1, c2 = st.columns(2)
-            c1.metric("Species", pred_species)
+            
+            # 使用 delta 参数显示置信度，看起来很专业
+            c1.metric("Species", pred_species, f"置信度: {confidence:.1f}%")
             c2.metric("Concentration", f"{pred_conc:.2f} ppb")
             
             # 3. Plotting
@@ -194,5 +206,6 @@ if analyze_btn:
             ax.grid(True, linestyle=':', alpha=0.5)
             
             st.pyplot(fig)
+
 
 

@@ -114,4 +114,5 @@ if clf is not None:
 
 else:
 
-    st.error("Please upload 'data.csv' to the GitHub repository.")
+    st.error("Please upload 'data.xlsx' to the GitHub repository.")
+

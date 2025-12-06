@@ -170,7 +170,7 @@ if analyze_btn:
             c1, c2 = st.columns(2)
             
             # 使用 delta 参数显示置信度，看起来很专业
-            c1.metric("Species", pred_species, f"置信度: {confidence:.1f}%")
+            c1.metric("Species", pred_species, f"Confidence: {confidence:.1f}%")
             c2.metric("Concentration", f"{pred_conc:.2f} ppb")
             
             # 3. Plotting
@@ -206,6 +206,7 @@ if analyze_btn:
             ax.grid(True, linestyle=':', alpha=0.5)
             
             st.pyplot(fig)
+
 
 
 

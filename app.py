@@ -151,7 +151,7 @@ if analyze_btn:
         
         if pred_species == "Water":
             # 在这里显示置信度
-            st.success(f"✅ Clean / Background (置信度: {confidence:.1f}%)")
+            st.success(f"✅ Clean / Background (Confidence: {confidence:.1f}%)")
         else:
             # 2. Quantification (Polynomial Inversion)
             model_data = models_info[pred_species]
@@ -206,6 +206,7 @@ if analyze_btn:
             ax.grid(True, linestyle=':', alpha=0.5)
             
             st.pyplot(fig)
+
 
 
 

@@ -14,11 +14,11 @@ st.markdown("### Rapid Identification of DCP and HCl")
 @st.cache_resource
 def load_model():
     try:
-        with open('model.pkl', 'rb') as f:
+        with open('sensor_brain.pkl', 'rb') as f:
             package = pickle.load(f)
         return package
     except FileNotFoundError:
-        st.error("⚠️ Model file not found! Please upload 'model.pkl' to GitHub.")
+        st.error("⚠️ Model file not found! Please upload 'sensor_brain.pkl' to GitHub.")
         return None
 
 package = load_model()
@@ -84,3 +84,4 @@ if package is not None:
 
 else:
     st.info("Please upload model.pkl to your repository.")
+

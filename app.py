@@ -86,8 +86,8 @@ clf, regressors, scaler, df = build_pipeline()
 with st.sidebar:
     st.header("🎛️ Sensor Input")
     st.info("Input raw values ($F/F_0 - 1$)")
-    mpa_val = st.number_input("Sensor 1 (MPA)", value=-0.00250, format="%.5f", step=0.0001)
-    flu_val = st.number_input("Sensor 2 (Flu)", value=0.00000, format="%.5f", step=0.0001)
+    mpa_val = st.number_input("Sensor 1 (1@Pt@MPA)", value=-0.00250, format="%.5f", step=0.0001)
+    flu_val = st.number_input("Sensor 2 (aggregate of 1 on Pt@MPA)", value=0.00000, format="%.5f", step=0.0001)
     st.markdown("---")
     analyze_btn = st.button("🚀 Analyze", type="primary")
 
@@ -171,4 +171,5 @@ if analyze_btn:
             ax.text(0.05, 0.85, eq, transform=ax.transAxes, bbox=dict(facecolor='white', alpha=0.9))
             
             st.pyplot(fig)
+
 

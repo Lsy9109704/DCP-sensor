@@ -17,10 +17,10 @@ st.info("Based on Machine Learning (SVM) Algorithm")
 # ==========================================
 @st.cache_data  # 缓存功能，让网页加载更快
 def train_models():
-    # 读取同目录下的 data.csv
+    # 读取同目录下的 data.xlsx
     try:
         # 尝试读取 CSV
-        df = pd.read_csv('data.csv')
+        df = pd.read_csv('data.xlsx')
     except:
         # 如果读取失败，生成模拟数据防止 App 崩溃（仅供演示）
         st.warning("Data file not found. Using simulation data.")
@@ -113,4 +113,5 @@ if clf is not None:
         st.info("👈 Please adjust values in the sidebar and click 'Analyze'.")
 
 else:
+
     st.error("Please upload 'data.csv' to the GitHub repository.")

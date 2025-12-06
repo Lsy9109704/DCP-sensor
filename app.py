@@ -32,26 +32,26 @@ st.markdown("""
 def build_pipeline():
     # 数据集
     data = {
-        "1@Pt@MPA": [-0.00238, -0.00242, -0.00237, -0.00238, -0.0024, -0.0024, -0.00269, -0.00267, -0.00268, -0.0027, -0.00262, -0.00268, -0.00478, -0.0047, -0.00477, -0.00472, -0.00473, -0.00473, -0.00794, -0.00801, -0.00793, -0.00798, -0.00799, -0.00799, -0.01043, -0.01043, -0.01042, -0.01047, -0.01045, -0.01044, -0.02717, -0.02718, -0.02718, -0.02714, -0.0272, -0.02718, -0.00158, -0.00152, -0.00156, -0.00157, -0.0016, -0.00159, -0.0032, -0.00317, -0.00313, -0.00317, -0.00319, -0.00317, -0.00559, -0.0056, -0.00557, -0.0056, -0.00559, -0.00559, -0.00675, -0.00684, -0.00694, -0.00643, -0.00687, -0.00684, -0.01204, -0.01241, -0.01235, -0.01989, -0.0121, -0.01202, -0.02165, -0.0215, -0.0208, -0.0211, -0.02088, -0.0211], 
-        "aggregate of 1 on Pt@MPA": [0.0]*18 + [-0.00103, -0.00124, -0.00162, -0.00133, -0.00144, -0.0011, -0.00371, -0.00372, -0.00381, -0.00372, -0.00372, -0.00311, -0.00648, -0.00648, -0.00626, -0.00635, -0.00648, -0.00641] + [-0.00414, -0.00413, -0.00512, -0.00453, -0.00499, -0.00422, -0.00514, -0.00513, -0.00512, -0.00553, -0.00588, -0.00522, -0.00604, -0.00681, -0.00691, -0.00612, -0.00632, -0.00632, -0.01269, -0.01275, -0.01267, -0.01245, -0.01303, -0.01279, -0.0221, -0.02241, -0.02237, -0.02242, -0.02299, -0.02301, -0.04369, -0.04188, -0.04581, -0.04172, -0.04128, -0.04193], 
+        "MPA": [-0.00238, -0.00242, -0.00237, -0.00238, -0.0024, -0.0024, -0.00269, -0.00267, -0.00268, -0.0027, -0.00262, -0.00268, -0.00478, -0.0047, -0.00477, -0.00472, -0.00473, -0.00473, -0.00794, -0.00801, -0.00793, -0.00798, -0.00799, -0.00799, -0.01043, -0.01043, -0.01042, -0.01047, -0.01045, -0.01044, -0.02717, -0.02718, -0.02718, -0.02714, -0.0272, -0.02718, -0.00158, -0.00152, -0.00156, -0.00157, -0.0016, -0.00159, -0.0032, -0.00317, -0.00313, -0.00317, -0.00319, -0.00317, -0.00559, -0.0056, -0.00557, -0.0056, -0.00559, -0.00559, -0.00675, -0.00684, -0.00694, -0.00643, -0.00687, -0.00684, -0.01204, -0.01241, -0.01235, -0.01989, -0.0121, -0.01202, -0.02165, -0.0215, -0.0208, -0.0211, -0.02088, -0.0211], 
+        "Flu": [0.0]*18 + [-0.00103, -0.00124, -0.00162, -0.00133, -0.00144, -0.0011, -0.00371, -0.00372, -0.00381, -0.00372, -0.00372, -0.00311, -0.00648, -0.00648, -0.00626, -0.00635, -0.00648, -0.00641] + [-0.00414, -0.00413, -0.00512, -0.00453, -0.00499, -0.00422, -0.00514, -0.00513, -0.00512, -0.00553, -0.00588, -0.00522, -0.00604, -0.00681, -0.00691, -0.00612, -0.00632, -0.00632, -0.01269, -0.01275, -0.01267, -0.01245, -0.01303, -0.01279, -0.0221, -0.02241, -0.02237, -0.02242, -0.02299, -0.02301, -0.04369, -0.04188, -0.04581, -0.04172, -0.04128, -0.04193], 
         "Species": ["DCP"]*36 + ["HCl"]*36, 
         "Concentration": [0.1]*6 + [1.0]*6 + [10.0]*6 + [100.0]*6 + [1000.0]*6 + [10000.0]*6 + [4.0]*6 + [40.0]*6 + [400.0]*6 + [4000.0]*6 + [40000.0]*6 + [400000.0]*6
     }
     
     # 增加 Water 对照组
-    data["1@Pt@MPA"].extend([-0.0006, -0.0005, -0.0007, -0.0006, -0.0006, -0.0005])
-    data["aggregate of 1 on Pt@MPA"].extend([0.0, 0.0, 0.0, 0.0, 0.00001, -0.00001])
+    data["MPA"].extend([-0.0006, -0.0005, -0.0007, -0.0006, -0.0006, -0.0005])
+    data["Flu"].extend([0.0, 0.0, 0.0, 0.0, 0.00001, -0.00001])
     data["Species"].extend(["Water"] * 6)
     data["Concentration"].extend([0] * 6)
 
     df = pd.DataFrame(data)
 
     # 取绝对值
-    df['1@Pt@MPA_Abs'] = df['1@Pt@MPA'].abs()
-    df['aggregate of 1 on Pt@MPA_Abs'] = df['aggregate of 1 on Pt@MPA'].abs()
+    df['MPA_Abs'] = df['MPA'].abs()
+    df['Flu_Abs'] = df['Flu'].abs()
 
     # 1. 训练 SVM 分类器 (用两个传感器)
-    X_cls = df[['1@Pt@MPA_Abs', 'aggregate of 1 on Pt@MPA_Abs']].values
+    X_cls = df[['MPA_Abs', 'Flu_Abs']].values
     y_cls = df['Species'].values
     scaler = StandardScaler()
     X_cls_scaled = scaler.fit_transform(X_cls)
@@ -86,8 +86,8 @@ clf, regressors, scaler, df = build_pipeline()
 with st.sidebar:
     st.header("🎛️ Sensor Input")
     st.info("Input raw values ($F/F_0 - 1$)")
-   1@Pt@MPA_val = st.number_input("Sensor 1 (1@Pt@MPA)", value=-0.00250, format="%.5f", step=0.0001)
-    aggregate of 1 on Pt@MPA_val = st.number_input("Sensor 2 (aggregate of 1 on Pt@MPA)", value=0.00000, format="%.5f", step=0.0001)
+    mpa_val = st.number_input("Sensor 1 (MPA)", value=-0.00250, format="%.5f", step=0.0001)
+    flu_val = st.number_input("Sensor 2 (Flu)", value=0.00000, format="%.5f", step=0.0001)
     st.markdown("---")
     analyze_btn = st.button("🚀 Analyze", type="primary")
 
@@ -96,11 +96,11 @@ with st.sidebar:
 # ==========================================
 if analyze_btn:
     # 检查正值干扰
-    if 1@Pt@MPA_val > 0.001 or flu_val > 0.001:
+    if mpa_val > 0.001 or flu_val > 0.001:
         st.error("⚠️ Unknown Interference (Enhancement Detected)")
     else:
         # 1. 分类 (SVM)
-        input_abs = np.array([[abs(1@Pt@MPA_val_val), abs(flu_val)]])
+        input_abs = np.array([[abs(mpa_val), abs(flu_val)]])
         input_scaled = scaler.transform(input_abs)
         pred_species = clf.predict(input_scaled)[0]
         confidence = np.max(clf.predict_proba(input_scaled)) * 100
@@ -111,15 +111,15 @@ if analyze_btn:
             # 2. 浓度计算 (Linear Regression)
             if pred_species == 'DCP':
                 # DCP 只看 MPA
-                pred_log = regressors['DCP'].predict([[abs(1@Pt@MPA_val)]])[0]
-                signal_used = abs(1@Pt@MPA_val)
-                signal_name = "1@Pt@MPA_val (Abs)"
+                pred_log = regressors['DCP'].predict([[abs(mpa_val)]])[0]
+                signal_used = abs(mpa_val)
+                signal_name = "MPA (Abs)"
                 color = 'blue'
             else:
                 # HCl 只看 Flu
-                pred_log = regressors['HCl'].predict([[abs(aggregate of 1 on Pt@MPA_val)]])[0]
-                signal_used = abs(aggregate of 1 on Pt@MPA_val)
-                signal_name = "aggregate of 1 on Pt@MPA (Abs)"
+                pred_log = regressors['HCl'].predict([[abs(flu_val)]])[0]
+                signal_used = abs(flu_val)
+                signal_name = "Flu (Abs)"
                 color = 'green'
                 
             pred_conc = 10 ** pred_log
@@ -136,9 +136,9 @@ if analyze_btn:
             subset = df[df['Species'] == pred_species]
             
             if pred_species == 'DCP':
-                x_data = subset['1@Pt@MPA_Abs'] # X轴: 信号
+                x_data = subset['MPA_Abs'] # X轴: 信号
             else:
-                x_data = subset['aggregate of 1 on Pt@MPA_Abs'] # X轴: 信号
+                x_data = subset['Flu_Abs'] # X轴: 信号
                 
             y_data = np.log10(subset['Concentration']) # Y轴: 浓度
             
@@ -171,6 +171,3 @@ if analyze_btn:
             ax.text(0.05, 0.85, eq, transform=ax.transAxes, bbox=dict(facecolor='white', alpha=0.9))
             
             st.pyplot(fig)
-
-
-
